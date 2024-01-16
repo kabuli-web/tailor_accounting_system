@@ -1,0 +1,170 @@
+.price-input::-webkit-inner-spin-button, 
+.price-input::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+.invoice-modal-products-form-group{
+
+
+}
+
+#addNewInvoice label{
+    text-align: left;
+}
+
+.dataTables_wrapper th, .dataTables_wrapper td{
+    text-align: right;
+}
+.dataTables_wrapper {
+    direction: rtl;
+  }
+  .dataTables_length{
+    text-align: left;
+  }
+.modal-input-section-header{
+    text-align: center;
+    margin: 30px;
+  }
+.modal-input-section-header{
+    margin: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-input-section-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+}
+.modal-input-section-container label{
+    text-align: center;
+    width: 100%;
+    font-size: 17px;
+    /* font-size: small; */
+}
+.radio_label{
+    text-align: right !important;
+}
+.modal-input-container > div{
+    display: flex;
+
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 5px;
+
+}
+.modal-input-container > div > div{
+    display: flex;
+    justify-content: center;
+   margin-top: 3px;
+}
+
+.modal-input-container{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    margin: 3px;
+    min-height: 100px;
+    padding: 12px;
+    border: 0.5px solid rgba(0, 0, 0, 0.137); 
+}
+
+.modal-input-container input[type="number"]{
+    width: 60px;
+}
+
+.modal-input-container input{
+    width: 20px;
+}
+
+.customer input{
+    width: 300px;
+}
+
+.customer input[type="number"]{
+    width: 200px;
+}
+.modal-input-container span{
+    width: fit-content;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+#design-input-section {
+justify-content: space-evenly;
+}
+#design-input-section div{
+    /* min-width: 25%; */
+}
+
+.modal-input-container.radio-with-images > div{
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.modal-input-container.radio-with-images > div > div{
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 110px;
+    min-width: 30px;
+    margin-left: 3px;
+    margin-right: 3px;
+
+}
+#side_pocket_input_container  img{
+    width: 15px;
+}
+
+#pocket_input_container  img{
+    margin-top: 4px;
+    width:40px;
+}
+#sleeve_input_container  img{
+    margin-top: 4px;
+    width:60px;
+}
+#neck_input_container  img{
+    margin-top: 4px;
+    width:80px;
+}
+
+.modal-input-container.radio-with-images.wide > div > div{
+    height: fit-content;
+}
+
+#neck_input_container > div:nth-child(3){
+    width: fit-content;
+}
+#neck_input_container > div:nth-child(3) > label{
+    width: fit-content;
+    margin: 5px;
+}
+.dataTables_scrollHeadInner{
+    padding-right: 0px !important;
+}
+
+#fatoora_table, #arabic_table{
+    width: 100% !important;
+}
+
+
+.modal-dialog{
+    direction: rtl !important;
+}
+.modal-title{
+    text-align: center !important;
+}

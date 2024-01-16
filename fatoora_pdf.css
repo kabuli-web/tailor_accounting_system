@@ -1,0 +1,145 @@
+html{
+    display: flex;
+    justify-content: center;
+}
+body{
+width: 595px;
+
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.fatoora_head{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    direction: rtl;
+}
+.logo{
+    font-size: 30px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    width: 25%;
+}
+
+.customer_logo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width:400px;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    width: 50%;
+}
+.customer_details{
+    margin-top: 7px;
+    display: flex;
+    justify-content: space-around;
+    font-size: 17px;
+    width: 100%;
+    /* text-align: right; */
+}
+.details{
+    width: 100%;
+}
+.date_id{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-size: 12px;
+    font-weight: bold;
+    width: 25%;
+    text-align: left;
+}
+.sizes{
+    margin-top: 20px;
+}
+table{
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-top: 10px; 
+    min-height: 10px; 
+}
+th, td{
+    border: 1px solid #ddd; 
+    padding: 3px; 
+    text-align: center;
+    padding: 7px;
+}
+th{
+    background-color: #f7f4ea;
+    color: black;
+}
+.header-row th{
+    width: 100%;
+    text-align: center;
+    background-color: #ECC8AF;
+    color: black;
+}
+
+.header-row h4{
+    margin: 2px;
+    font-size: 20px;
+    
+}
+
+.long_image{
+    width:15px;
+}
+
+.square_image{
+    width:50px;
+}
+
+th{
+    font-size: 15px;
+    font-weight: 600;
+}
+td h5{
+    margin: 0px;
+}
+.note{
+    text-align: center;
+    width: 100%;
+}
+.note *{
+    margin: 3px;
+}
+.note textarea{
+    width: 100%;
+    height: 100px;
+}
+
+ul li{
+    text-align: right;
+}
+ul{
+    margin: 0px;
+    padding-right:20px;
+}
+body > div.receipt > table > tbody > tr:nth-child(1) > td:nth-child(1){
+    width: 120px;
+}
+.receipt td {
+    text-align: right;
+}
+body > div.receipt > table > tbody > tr:nth-child(6) > td{
+    text-align: center;
+}
+.receipt{
+    margin-top: 5px;
+}
+
+#qr{
+    display: flex;
+    justify-content: center;
+
+}
+
+@media print {
+html{
+    margin: 0px;
+}
+}
