@@ -20,3 +20,4 @@ use sql triggers to make it automated
 4. on expense delete add a transactions that adds amount back to the account [X]
 5. fix invoice barcode [ ]
 6. Fix tranfer case whether its minus or add in the account_details page [ ]
+7. make the monthly report to only show monthly
