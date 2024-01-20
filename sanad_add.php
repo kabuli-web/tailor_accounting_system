@@ -20,7 +20,7 @@
             $res = insert_sanad($conn,$fatoora_id,$amount,$account_id);
 
             if( $res['success']){
-                $_SESSION['success'] = 'تم اضافة سند القبض';
+                $_SESSION['success'] = 'تم اضافة الايصال ';
             }
             else{
                 $_SESSION['error'] = $res['error'];

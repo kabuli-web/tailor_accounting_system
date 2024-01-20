@@ -4,6 +4,13 @@
 <?php
 
 if(isset($_GET['id'])){
+  $account_id = $_GET['id'];
+  $transaction_sql = "SELECT * FROM account WHERE id = '".$account_id."'";
+  
+  $account_query = $conn->query($transaction_sql);
+
+  $account_result = $account_query->fetch_assoc();
+
   ?>
   <?php
   include './timezone.php';
@@ -16,18 +23,61 @@ if(isset($_GET['id'])){
 
   <?php include 'includes/navbar.php'; ?>
   <?php include 'includes/menubar.php'; ?>
+  <?php 
 
+    $to = date('Y-m-d');
+    $from = date('Y-m-d', strtotime('-30 day', strtotime($to)));
+
+    if(isset($_GET['range'])){
+      $range = $_GET['range'];
+      $ex = explode(' - ', $range);
+      $from = date('Y-m-d', strtotime($ex[0]));
+      $to = date('Y-m-d', strtotime($ex[1]));
+    }
+    $account = $_GET['id'];
+    $transaction_sql = "SELECT * FROM transactions WHERE account_id = '".$account."' AND  created_at BETWEEN '$from 00:02:00' AND '$to 23:59:59'";
+     
+    $transactions = $conn->query($transaction_sql);
+    $opening_balance = null;
+    $current_balance = 0;
+    
+    while ($transaction = $transactions->fetch_assoc()) {
+        // Update the current balance for each transaction
+        $current_balance = $transaction['balance'];
+    
+        // Set the opening balance if it's the first transaction
+        if ($opening_balance === null) {
+            $opening_balance = $transaction['balance'];
+        }
+        
+        // Process the rest of the transaction data as needed
+        $transactionAmount = $transaction['amount'];
+        $transactionType = $transaction['transaction_type'];
+    
+        // Your logic for processing each transaction goes here
+    }
+     
+
+  
+  ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Payroll
+      <h1 style="font-weight:bold;">
+      تفاصيل حساب: <?php echo $account_result['name']; ?>  
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Payroll</li>
-      </ol>
+      <div class="balance_wrapper">
+        <div class="balance_content_wrapper">
+            <h3> رصيد الاستفتاح</h3>
+            <h2> <?php echo $opening_balance; ?> ريال</h2>
+        </div>
+        <div class="balance_content_wrapper">
+            <h3> الرصيد الحالي</h3>
+            <h2> <?php echo $current_balance; ?> ريال</h2>
+        </div>
+      </div>
+     
     </section>
     <!-- Main content -->
     <section class="content">
@@ -65,8 +115,8 @@ if(isset($_GET['id'])){
                     </div>
                     <input type="text" class="form-control pull-right col-sm-8" id="reservation" name="date_range" value="<?php echo (isset($_GET['range'])) ? $_GET['range'] : $range_from.' - '.$range_to; ?>">
                   </div>
-                  <button type="button" class="btn btn-success btn-sm btn-flat" id="payroll"><span class="glyphicon glyphicon-print"></span> Payroll</button>
-                  <button type="button" class="btn btn-primary btn-sm btn-flat" id="payslip"><span class="glyphicon glyphicon-print"></span> Payslip</button>
+                  <!-- <button type="button" class="btn btn-success btn-sm btn-flat" id="payroll"><span class="glyphicon glyphicon-print"></span> Payroll</button>
+                  <button type="button" class="btn btn-primary btn-sm btn-flat" id="payslip"><span class="glyphicon glyphicon-print"></span> Payslip</button> -->
                 </form>
               </div>
             </div>
@@ -81,20 +131,10 @@ if(isset($_GET['id'])){
                 </thead>
                 <tbody>
                   <?php
-                  
-                    
-                    $to = date('Y-m-d');
-                    $from = date('Y-m-d', strtotime('-30 day', strtotime($to)));
 
-                    if(isset($_GET['range'])){
-                      $range = $_GET['range'];
-                      $ex = explode(' - ', $range);
-                      $from = date('Y-m-d', strtotime($ex[0]));
-                      $to = date('Y-m-d', strtotime($ex[1]));
-                    }
-
-
-                      $transaction_sql = "SELECT * FROM transactions WHERE created_at BETWEEN '$from 00:01:00' AND '$to 23:59:59'";
+                   
+                      $account = $_GET['id'];
+                      $transaction_sql = "SELECT * FROM transactions WHERE account_id = '".$account."' AND  created_at BETWEEN '$from 00:02:00' AND '$to 23:59:59'";
                       
                       $transactions = $conn->query($transaction_sql);
                       $last_transaction = null;
@@ -105,7 +145,7 @@ if(isset($_GET['id'])){
                       $type = "";
                       switch($transaction['transaction_type']){
                         case "sanad":
-                          $source = "سند قبض رقم: ".$transaction['foreign_id']."";
+                          $source = "الايصال رقم: ".$transaction['foreign_id']."";
                           break;
 
                         case "expense":
@@ -116,19 +156,26 @@ if(isset($_GET['id'])){
                           $source = " حوالة من حساب رقم: ".$transaction['foreign_id']."";
                           break;
 
+                        case "refund":
+                          $source = $transaction['details'];
+                          break;
                       }
 
                       switch($transaction['transaction_type']){
                         case "sanad":
                           $type = "ايداع";
-                          
                           break;
 
                         case "expense":
                           $type = "صرف";
                           $color = "red";
                           break;
-
+                        
+                        case "refund":
+                          $type = "استرجاع";
+                          $color = "blue";
+                          break;
+                        
                         case "transfer":
                           if($transaction['balance'] > $last_transaction['balance']){
                             $type = "حوالة من حساب اخر";
@@ -149,14 +196,12 @@ if(isset($_GET['id'])){
                       }
 
                       echo "
-                        <tr>
+                        <tr >
                           <td>".$transaction['created_at']."</td>
                           <td>".$source."</td>
-                          <td>".$transaction['amount']."</td>
-                          <td>".$type."</td>
-                          <td>".$transaction['balance']."</td>
-
-
+                          <td style = 'font-weight:bold; color:".$color."'>".$transaction['amount'] ." ريال </td>
+                          <td style = 'font-weight:bold; color:".$color."'>".$type."</td>
+                          <td style = 'font-weight:bold; color:".$color."'>".$transaction['balance']." ريال </td>
                         </tr>
                       ";
                       $last_transaction = $transaction;

@@ -168,3 +168,15 @@ justify-content: space-evenly;
 .modal-title{
     text-align: center !important;
 }
+
+.balance_wrapper{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.balance_content_wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

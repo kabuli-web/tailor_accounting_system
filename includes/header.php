@@ -10,7 +10,7 @@
   	<!-- Bootstrap 3.3.7 -->
   	<link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
   	<!-- Font Awesome -->
-  	<link rel="stylesheet" href="./bower_components/font-awesome/css/font-awesome.min.css">
+  	<!-- <link rel="stylesheet" href="./bower_components/font-awesome/css/font-awesome.min.css"> -->
   	<!-- Ionicons -->
   	<link rel="stylesheet" href="./bower_components/Ionicons/css/ionicons.min.css">
   	<!-- Theme style -->
@@ -31,7 +31,10 @@
     <!-- Select2 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
-    
+    <script src="https://kit.fontawesome.com/206792d64a.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
 
 
   	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

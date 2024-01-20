@@ -25,14 +25,14 @@
                 $conn->query($updateSql);
             }
 
-            $_SESSION['success'] = 'تم حذف سند القبض';
+            $_SESSION['success'] = 'تم حذف الايصال ';
         }
         else{
             $_SESSION['error'] = $conn->error;
         }
     }
     else{
-        $_SESSION['error'] = 'اختار سند القبض';
+        $_SESSION['error'] = 'اختار الايصال ';
     }
 
     header('location: sanad.php');

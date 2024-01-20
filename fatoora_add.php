@@ -43,7 +43,7 @@ if (isset($_POST['add'])) {
              $res = insert_sanad($conn,$fatoora_id,$total_paid,$account_id);
 
             if( $res['success']){
-                $_SESSION['success'] = 'تم اضافة الفاتورة و سند القبض';
+                $_SESSION['success'] = 'تم اضافة الفاتورة و الايصال ';
             }
             else{
                 $_SESSION['error'] = $res['error'];

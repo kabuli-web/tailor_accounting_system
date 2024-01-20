@@ -66,7 +66,7 @@
                 <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal">
                     <i class="fa fa-close"></i> الغاء
                 </button>
-                <button type="submit" class="btn btn-primary btn-flat" name="add">
+                <button type="submit" class="btn btn-primary btn-flat" name="edit">
                     <i class="fa fa-save"></i> حفظ
                 </button>
 			</form>

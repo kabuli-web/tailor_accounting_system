@@ -18,7 +18,7 @@ function insert_transaction($conn, $account_id, $foreign_id, $amount, $transacti
         // Adjust the balance based on transaction type
         $balance_adjustment = ($transaction_type == 'sanad') ? $amount : (-$amount);
        
-       switch(){
+       switch($transaction_type){
         case "sanad":
             $detail = 'ايداع من المبيعات';
             break;
@@ -50,7 +50,7 @@ function insert_transaction($conn, $account_id, $foreign_id, $amount, $transacti
 
         // Check if the from account has sufficient balance for the transfer
         if ($from_accounts_current_balance >= $amount) {
-            $detail = 'خصم لتحويل الى حساب اخر':
+            $detail = 'خصم لتحويل الى حساب اخر';
             
             // Insert the transaction for the account being transferred from (foreign_id)
             $from_balance = $from_accounts_current_balance - $amount;
@@ -68,7 +68,7 @@ function insert_transaction($conn, $account_id, $foreign_id, $amount, $transacti
                 return array("success" => false, "error" => "Cant find last transcation for the account being transfered to hence cant find balance.");
             }
 
-            $detail = 'ايداع لتحويل من حساب اخر':
+            $detail = 'ايداع لتحويل من حساب اخر';
             $to_balance = $to_current_balance + $amount;
             $sql_to = "INSERT INTO transactions (details, account_id, amount, transaction_type, balance, foreign_id) 
                        VALUES ('$detail','$account_id', '$amount', 'transfer', '$to_balance', '$foreign_id')";

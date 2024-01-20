@@ -1,9 +1,9 @@
 TODO: Implement this feature 
 
-1. get current account balance on account.php page [  ]
+1. get current account balance on account.php page [ X ]
 2.  account details page
     - create account/details.php?id=1 page where we show all the transactions for 
-      for a specific day or month or from day to day [ ]
+      for a specific day or month or from day to day [X]
     - show opening balance closing balance [ ]
 3. create expenses page (add,delete,edit{details}) 
     - connect it to transactions [ ]
@@ -15,9 +15,8 @@ TODO: Implement this feature
 FIXME: Fix this issue
 use sql triggers to make it automated
 
-1. on fatoora delete delete all sanads [  ]
-2. on sanad add minus transactions to the account which the sanad was attached to [  ]
-3. on account delete delete all transactions[  ]
-4. on expense delete add a transactions that adds amount back to the account [ ]
-5. fix invoice barcode
-6. Fix tranfer case whether its minus or add in the account_details page
+1. on fatoora delete delete all sanads [ X]
+2. on sanad add minus transactions to the account which the sanad was attached to [ X]
+4. on expense delete add a transactions that adds amount back to the account [X]
+5. fix invoice barcode [ ]
+6. Fix tranfer case whether its minus or add in the account_details page [ ]

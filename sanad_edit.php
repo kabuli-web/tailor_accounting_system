@@ -24,7 +24,7 @@
                     $conn->query($updateSql);
                 }
 
-                $_SESSION['success'] = 'تم تحديث سند القبض بنجاح';
+                $_SESSION['success'] = 'تم تحديث الايصال  بنجاح';
             }
             else{
                 $_SESSION['error'] = $conn->error;

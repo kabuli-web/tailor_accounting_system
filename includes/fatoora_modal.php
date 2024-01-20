@@ -393,7 +393,7 @@
 							</label>
 							
 							<div>
-								<input required min="1" max="10000" type="number" value="10" class="form-control" id="total" name="total">								
+								<input required step="0.01" min="1" max="10000" type="number" value="10" class="form-control" id="total" name="total">								
 							<span class="input-group-addon">ريال</span>	
 							</div>
 						</div>
@@ -403,7 +403,7 @@
 								المبلغ المدفوع </br> Total Paid
 							</label>
 							<div>
-								<input required min="1" max="10000" type="number" value="7" class="form-control" id="total_paid" name="total_paid">								
+								<input required step="0.01" min="1" max="10000" type="number" value="7" class="form-control" id="total_paid" name="total_paid">								
 							<span class="input-group-addon">ريال</span>	
 							</div>
 						</div>
@@ -844,7 +844,7 @@
 							</label>
 							
 							<div>
-								<input required min="1" max="10000" type="number" class="form-control" class="total" name="total">								
+								<input  required min="1" step="0.01" max="10000" type="number" class="form-control" class="total" name="total">								
 							<span class="input-group-addon">ريال</span>	
 							</div>
 						</div>
@@ -854,7 +854,7 @@
 							المبلغ المدفوع  </br> Total Paid
 							</label>
 							<div>
-								<input  readonly min="1" max="10000" type="number" class="form-control" class="total_paid" name="total_paid">								
+								<input  readonly min="1" step="0.01" max="10000" type="number" class="form-control" class="total_paid" name="total_paid">								
 							<span class="input-group-addon">ريال</span>	
 							</div>
 						</div>

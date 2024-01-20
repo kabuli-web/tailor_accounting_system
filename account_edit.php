@@ -3,7 +3,7 @@
 
 	if(isset($_POST['edit'])){
 		$id = $_POST['id'];
-		$name = $_POST['title'];
+		$name = $_POST['name'];
 
 
 		$sql = "UPDATE account SET name = '$name' WHERE id = '$id'";

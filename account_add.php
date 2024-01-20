@@ -18,7 +18,7 @@
             if($conn->query($insertAccountSql)){
                 // Get the ID of the newly inserted account
                 $accountId = $conn->insert_id;
-                $detail = 'فتح حساب ':
+                $detail = 'فتح حساب ';
                 // Insert a corresponding entry into the transactions table
                 $insertTransactionSql = "INSERT INTO transactions (details,account_id, transaction_type, balance, foreign_id) VALUES ('$detail','$accountId', 'open', '$current_balance', 0)";
 

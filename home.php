@@ -1,288 +1,142 @@
 <?php include 'includes/session.php'; ?>
-<?php 
-  include '../timezone.php'; 
-  $today = date('Y-m-d');
-  $year = date('Y');
-  if(isset($_GET['year'])){
-    $year = $_GET['year'];
-  }
-?>
-<?php include 'includes/header.php'; ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+  <div class="wrapper">
+    <?php include 'includes/navbar.php'; ?>
+    <?php include 'includes/menubar.php'; ?>
+    <?php include 'includes/header.php'; ?>
 
-  <?php include 'includes/navbar.php'; ?>
-  <?php include 'includes/menubar.php'; ?>
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      
-      <ol class="breadcrumb">
-      <li class="active">Dashboard</li>
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      </ol>
-      <h1>
-        Dashboard
-      </h1>
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-      <?php
-        if(isset($_SESSION['error'])){
-          echo "
-            <div class='alert alert-danger alert-dismissible'>
-              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              <h4><i class='icon fa fa-warning'></i> Error!</h4>
-              ".$_SESSION['error']."
-            </div>
-          ";
-          unset($_SESSION['error']);
-        }
-        if(isset($_SESSION['success'])){
-          echo "
-            <div class='alert alert-success alert-dismissible'>
-              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              <h4><i class='icon fa fa-check'></i> Success!</h4>
-              ".$_SESSION['success']."
-            </div>
-          ";
-          unset($_SESSION['success']);
-        }
-      ?>
-      <!-- Small boxes (Stat box) -->
-      <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <?php
-                $sql = "SELECT * FROM employees";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>";
-              ?>
-
-              <p>Total Employees</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-person-stalker"></i>
-            </div>
-            <a href="employee.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <?php
-                $sql = "SELECT * FROM attendance";
-                $query = $conn->query($sql);
-                $total = $query->num_rows;
-
-                $sql = "SELECT * FROM attendance WHERE status = 1";
-                $query = $conn->query($sql);
-                $early = $query->num_rows;
-                
-                $percentage = ($early/$total)*100;
-
-                echo "<h3>".number_format($percentage, 2)."<sup style='font-size: 20px'>%</sup></h3>";
-              ?>
-          
-              <p>On Time Percentage</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="attendance.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <?php
-                $sql = "SELECT * FROM attendance WHERE date = '$today' AND status = 1";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>"
-              ?>
-             
-              <p>On Time Today</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-clock"></i>
-            </div>
-            <a href="attendance.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <?php
-                $sql = "SELECT * FROM attendance WHERE date = '$today' AND status = 0";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>"
-              ?>
-
-              <p>Late Today</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-alert-circled"></i>
-            </div>
-            <a href="attendance.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-      </div>
-      <!-- /.row -->
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Monthly Attendance Report</h3>
-              <div class="box-tools pull-right">
-                <form class="form-inline">
-                  <div class="form-group">
-                    <label>Select Year: </label>
-                    <select class="form-control input-sm" id="select_year">
-                      <?php
-                        for($i=2015; $i<=2065; $i++){
-                          $selected = ($i==$year)?'selected':'';
-                          echo "
-                            <option value='".$i."' ".$selected.">".$i."</option>
-                          ";
-                        }
-                      ?>
-                    </select>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div class="box-body">
-              <div class="chart">
-                <br>
-                <div id="legend" class="text-center"></div>
-                <canvas id="barChart" style="height:350px"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+  
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <ol class="breadcrumb">
+          <li class="active">Dashboard</li>
+          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        </ol>
+        <h1>التقارير</h1>
       </section>
-      <!-- right col -->
+  
+      <!-- Main content -->
+      <section class="content">
+      <form id="dateRangeForm">
+          <label for="start">Start Date:</label>
+          <input type="date" id="start" name="start" required>
+          <label for="end">End Date:</label>
+          <input type="date" id="end" name="end" required>
+          <button type="button" id="loadChartsBtn">Load Charts</button>
+        </form>
+
+        
+
+        <div class="row">
+          <div class="col-sm-12 col-md-6 text-center">
+          <h3 class="text-primary text-center">التقرير اليومي</h3>
+            <!-- <label class="label label-success">التقرير اليومي</label> -->
+            <div id="daily-chart"></div>
+          </div>
+          <div class="col-sm-12 col-md-6 text-center">
+          <h3 class="text-primary text-center">التقرير الشهري</h3>
+            <!-- <label class="label label-success">التقرير اليومي</label> -->
+            <div id="monthly-chart"></div>
+          </div>
+        </div>
+
+        
+      </section>
     </div>
-  	<?php include 'includes/footer.php'; ?>
+    
+    <?php include 'includes/footer.php'; ?>
+  </div>
 
-</div>
-<!-- ./wrapper -->
-
-<!-- Chart Data -->
-<?php
-  $and = 'AND YEAR(date) = '.$year;
-  $months = array();
-  $ontime = array();
-  $late = array();
-  for( $m = 1; $m <= 12; $m++ ) {
-    $sql = "SELECT * FROM attendance WHERE MONTH(date) = '$m' AND status = 1 $and";
-    $oquery = $conn->query($sql);
-    array_push($ontime, $oquery->num_rows);
-
-    $sql = "SELECT * FROM attendance WHERE MONTH(date) = '$m' AND status = 0 $and";
-    $lquery = $conn->query($sql);
-    array_push($late, $lquery->num_rows);
-
-    $num = str_pad( $m, 2, 0, STR_PAD_LEFT );
-    $month =  date('M', mktime(0, 0, 0, $m, 1));
-    array_push($months, $month);
-  }
-
-  $months = json_encode($months);
-  $late = json_encode($late);
-  $ontime = json_encode($ontime);
-
-?>
-<!-- End Chart Data -->
-<?php include 'includes/scripts.php'; ?>
-<script>
-$(function(){
-  var barChartCanvas = $('#barChart').get(0).getContext('2d')
-  var barChart = new Chart(barChartCanvas)
-  var barChartData = {
-    labels  : <?php echo $months; ?>,
-    datasets: [
-      {
-        label               : 'Late',
-        fillColor           : 'rgba(210, 214, 222, 1)',
-        strokeColor         : 'rgba(210, 214, 222, 1)',
-        pointColor          : 'rgba(210, 214, 222, 1)',
-        pointStrokeColor    : '#c1c7d1',
-        pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(220,220,220,1)',
-        data                : <?php echo $late; ?>
-      },
-      {
-        label               : 'Ontime',
-        fillColor           : 'rgba(60,141,188,0.9)',
-        strokeColor         : 'rgba(60,141,188,0.8)',
-        pointColor          : '#3b8bba',
-        pointStrokeColor    : 'rgba(60,141,188,1)',
-        pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
-        data                : <?php echo $ontime; ?>
+  <?php include 'includes/scripts.php'; ?>
+  <script>
+    
+    function loadCharts(defaultStart,defaultEnd) {
+      // Fetch data based on the selected date range
+      var startDate = $("#start").val();
+      var endDate = $("#end").val();
+      if(!startDate){
+        startDate = new Date();
+        startDate.setDate(startDate.getDate() - 30);
+        startDate = startDate.toISOString().split('T')[0];
+        endDate = new Date().toISOString().split('T')[0];
       }
-    ]
-  }
-  barChartData.datasets[1].fillColor   = '#00a65a'
-  barChartData.datasets[1].strokeColor = '#00a65a'
-  barChartData.datasets[1].pointColor  = '#00a65a'
-  var barChartOptions                  = {
-    //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-    scaleBeginAtZero        : true,
-    //Boolean - Whether grid lines are shown across the chart
-    scaleShowGridLines      : true,
-    //String - Colour of the grid lines
-    scaleGridLineColor      : 'rgba(0,0,0,.05)',
-    //Number - Width of the grid lines
-    scaleGridLineWidth      : 1,
-    //Boolean - Whether to show horizontal lines (except X axis)
-    scaleShowHorizontalLines: true,
-    //Boolean - Whether to show vertical lines (except Y axis)
-    scaleShowVerticalLines  : true,
-    //Boolean - If there is a stroke on each bar
-    barShowStroke           : true,
-    //Number - Pixel width of the bar stroke
-    barStrokeWidth          : 2,
-    //Number - Spacing between each of the X value sets
-    barValueSpacing         : 5,
-    //Number - Spacing between data sets within X values
-    barDatasetSpacing       : 1,
-    //String - A legend template
-    legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
-    //Boolean - whether to make the chart responsive
-    responsive              : true,
-    maintainAspectRatio     : true
-  }
+      $("#daily-chart").empty();
+      $("#monthly-chart").empty();
 
-  barChartOptions.datasetFill = false
-  var myChart = barChart.Bar(barChartData, barChartOptions)
-  document.getElementById('legend').innerHTML = myChart.generateLegend();
-});
-</script>
-<script>
-$(function(){
-  $('#select_year').change(function(){
-    window.location.href = 'home.php?year='+$(this).val();
-  });
-});
-</script>
+      $.ajax({
+        url: 'get_report.php?type=daily', // Update with your PHP script
+        method: 'POST',
+        data: { start: startDate, end: endDate },
+        success: function (data) {
+          var parsedData = JSON.parse(data);
+
+          // Morris.js configurations
+          var config = {
+            data: parsedData,
+            xkey: 'date',
+            ykeys: ['sanads', 'expenses'],
+            labels: ['الدخل', 'الصرف'],
+            fillOpacity: 0.6,
+            hideHover: 'auto',
+            behaveLikeLine: true,
+            resize: true,
+            pointFillColors: ['#ffffff'],
+            pointStrokeColors: ['black'],
+            lineColors: ['gray', 'red'],
+            element: 'daily-chart'
+          };
+
+          // Render Morris.js charts
+          Morris.Area(config);
+        },
+        error: function (error) {
+          console.log('Error fetching data:', error);
+        }
+      });
+
+      $.ajax({
+        url: 'get_report.php?type=monthly-chart', // Update with your PHP script
+        method: 'POST',
+        data: { start: startDate, end: endDate },
+        success: function (data) {
+          var parsedData = JSON.parse(data);
+
+          // Morris.js configurations
+          var config = {
+            data: parsedData,
+            xkey: 'date',
+            ykeys: ['sanads', 'expenses'],
+            labels: ['الدخل', 'الصرف'],
+            fillOpacity: 0.6,
+            hideHover: 'auto',
+            behaveLikeLine: true,
+            resize: true,
+            pointFillColors: ['#ffffff'],
+            pointStrokeColors: ['black'],
+            lineColors: ['gray', 'red'],
+            element: 'monthly-chart'
+          };
+
+          // Render Morris.js charts
+          Morris.Bar(config);
+        },
+        error: function (error) {
+          console.log('Error fetching data:', error);
+        }
+      });
+    }
+
+   $(document).ready(function () {
+
+    $("#loadChartsBtn").click(loadCharts);
+    loadCharts();
+   })
+  </script>
 </body>
 </html>

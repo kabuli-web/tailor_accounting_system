@@ -14,13 +14,18 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <!-- <li class="header">REPORTS</li> -->
-        <li class=""><a href="home.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+        <li class=""><a href="home.php"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
      
-        <li class=""><a href="fatoora.php"><i class="fa fa-dashboard"></i> <span>الفواتير</span></a></li>
+        <li class=""><a href="fatoora.php"><i class="fas fa-file-invoice"></i><span>الفواتير</span></a></li>
 
-        <li class=""><a href="sanad.php"><i class="fa fa-dashboard"></i> <span>سندات القبض</span></a></li>
+        <li class=""><a href="sanad.php"><i class="fas fa-receipt"></i> <span>إيصالات</span></a></li>
 
-        <li class=""><a href="account.php"><i class="fa fa-dashboard"></i> <span> الحسابات</span></a></li>
+        <li class=""><a href="expense.php"><i class="fas fa-money-bill"></i> <span> المصاريف</span></a></li>
+
+        <li class=""><a href="account.php"><i class="fas fa-university"></i> <span> الحسابات</span></a></li>
+
+        
+
 
 
         <!-- <li class="treeview">

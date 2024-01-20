@@ -11,12 +11,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        إيصالات 
+        المصاريف
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li>Employees</li>
-        <li class="active">sanad</li>
+        <li class="active"> المصاريف</li>
       </ol>
     </section>
     <!-- Main content -->
@@ -54,15 +53,16 @@
                 <thead>
                   <th class="hidden"></th>
                   <th>التاريخ</th>
-                  <th>رقم الايصال</th>
-                  <th>رقم الفاتورة</th>
+                  <th>رقم الصرف</th>
+                  
                   <th>المبلغ</th>
-                  <th>طريقة الدفع</th>
+                  <th>التفاصيل</th>
+                  <th>من حساب</th>
                   <th>Tools</th>
                 </thead>
                 <tbody>
                   <?php
-                    $sql = "SELECT * FROM sanad ORDER BY created_at DESC";
+                    $sql = "SELECT * FROM expenses ORDER BY created_at DESC";
                     $query = $conn->query($sql);
                     while($row = $query->fetch_assoc()){
                       $id = $row['account_id'];
@@ -75,11 +75,12 @@
                                 <td class='hidden'></td>
                                 <td>" . date('M d, Y', strtotime($row['created_at'])) . "</td>
                                 <td>" . $row['id'] . "</td>
-                                <td>" . $row['fatoora_id'] . "</td>
+                               
                                 <td>" . $row['amount'] . "</td>
+                                <td>" . $row['description'] . "</td>
                                 <td><a href='account_details.php?id=" . $id . "'>" . $acount['name'] . "</a></td>
                                 <td>
-                                    <button class='btn btn-success btn-sm btn-flat edit' data-id='" . $row['id'] . "'><i class='fa fa-view'></i> فتح</button>
+                                    <button class='btn btn-success btn-sm btn-flat edit' data-id='" . $row['id'] . "'><i class='fa fa-edit'></i> تعديل</button>
                                     <button class='btn btn-danger btn-sm btn-flat delete' data-id='" . $row['id'] . "'><i class='fa fa-trash'></i> حذف</button>
                                 </td>
                             </tr>
@@ -97,7 +98,7 @@
   </div>
     
   <?php include 'includes/footer.php'; ?>
-  <?php include 'includes/sanad_modal.php'; ?>
+  <?php include 'includes/expense_modal.php'; ?>
 </div>
 <?php include 'includes/scripts.php'; ?>
 <script>
@@ -129,7 +130,7 @@ $(function(){
 function getRow(id){
   $.ajax({
     type: 'POST',
-    url: 'sanad_row.php',
+    url: 'expense_row.php',
     data: {id:id},
     dataType: 'json',
     success: function(response){
@@ -138,10 +139,10 @@ function getRow(id){
     
       $('#edit input[name="amount"]').val(response.amount);
       $('#edit input[name="account_id"]').val(response.account_id);
-      $('#edit input[name="sanad_id"]').val(response.id);
-      $('#edit input[name="fatoora_id"]').val(response.fatoora_id);
-      $('#delete input[name="sanad_id"]').val(response.id);
-      $('#delete input[name="fatoora_id"]').val(response.fatoora_id);
+      $('#edit input[name="expense_id"]').val(response.id);
+      $('#edit input[name="description"]').val(response.description);
+      $('#delete input[name="expense_id"]').val(response.id);
+      $('#delete input[name="description"]').val(response.description);
     }
   });
 }
