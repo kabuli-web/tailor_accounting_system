@@ -23,7 +23,7 @@
   
       <!-- Main content -->
       <section class="content">
-      <form id="dateRangeForm">
+      <form id="dateRangeForm" style="text-align: center;">
           <label for="start">Start Date:</label>
           <input type="date" id="start" name="start" required>
           <label for="end">End Date:</label>
@@ -101,9 +101,9 @@
       });
 
       $.ajax({
-        url: 'get_report.php?type=monthly-chart', // Update with your PHP script
+        url: 'get_report.php?type=monthly', // Update with your PHP script
         method: 'POST',
-        data: { start: startDate, end: endDate },
+        data: { start: startDate, end: endDate},
         success: function (data) {
           var parsedData = JSON.parse(data);
 

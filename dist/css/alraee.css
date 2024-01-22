@@ -162,7 +162,18 @@ justify-content: space-evenly;
 }
 
 
-.modal-dialog{
+/* Custom RTL style for the modal */
+/* .modal-rtl .modal-dialog {
+    direction: rtl;
+} */
+
+/* Adjust the text alignment for form controls if needed */
+/* .modal-rtl .form-control {
+    text-align: right;
+} */
+
+.form-group{
+    display: flex !important;
     direction: rtl !important;
 }
 .modal-title{
@@ -179,4 +190,11 @@ justify-content: space-evenly;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.dataTables_info{
+    text-align: end !important;
+}
+.pagination{
+    padding-right: 0px !important;
 }

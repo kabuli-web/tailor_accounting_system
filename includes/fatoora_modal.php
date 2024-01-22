@@ -407,23 +407,23 @@
 							<span class="input-group-addon">ريال</span>	
 							</div>
 						</div>
-						<div class="form-group">
-                  	<label for="account_id" class="col-sm-3 control-label">طريقة الدفع</label>
+						<div class="modal-input-container">
+                  		<label for="account_id" class="col-sm-3 control-label">طريقة الدفع</label>
 
-						<div class="col-sm-12">
-							<select required name="account_id" class="form-control" id="account_id">
-							<?php 
-								include $_SERVER['DOCUMENT_ROOT'] . '/conn.php';
-								$sql = "SELECT * FROM account";
-								$query = $conn->query($sql);
+							<div >
+								<select required name="account_id" class="form-control" id="account_id">
+								<?php 
+									include $_SERVER['DOCUMENT_ROOT'] . '/conn.php';
+									$sql = "SELECT * FROM account";
+									$query = $conn->query($sql);
 
-								while ($account = $query->fetch_assoc()) {
-									echo '<option value="' . $account['id'] . '">' . $account['name'] . '</option>';
-								}
-							?>
-							</select>
-						</div>
-                	</div>
+									while ($account = $query->fetch_assoc()) {
+										echo '<option value="' . $account['id'] . '">' . $account['name'] . '</option>';
+									}
+								?>
+								</select>
+							</div>
+                		</div>
 					</div>
 					<h2 class="modal-input-section-header" id="total_Left"></h2>
 

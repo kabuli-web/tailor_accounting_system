@@ -4,6 +4,7 @@ include 'includes/session.php';
 if (isset($_POST['start']) && isset($_POST['end'])) {
     $start = $_POST['start'] . ' 00:00:00';
     $end = $_POST['end'] . ' 23:59:59';
+    $type = $_GET["type"];
 
     $sanad_sql = "SELECT * FROM sanad WHERE created_at BETWEEN '$start' AND '$end'";
     $sanads = $conn->query($sanad_sql);
@@ -29,30 +30,41 @@ if (isset($_POST['start']) && isset($_POST['end'])) {
 
     $currentDate = clone $startDate;
 
+ 
+
     $report_data = [];
-    // Loop through each day
+
     while ($currentDate <= $endDate) {
         $total_expenses = 0;
-        $formattedCurrentDate = $currentDate->format('Y-m-d');
+        $formattedCurrentDate = ($type == 'monthly') ? $currentDate->format('Y-m') : $currentDate->format('Y-m-d');
+    
         foreach ($expenses_array as $exp) {
-            $formattedExpDate = $exp['created_at'];
+            $dateTime = new DateTime($exp['created_at']);
+            $formattedExpDate = ($type == 'monthly') ? $dateTime->format('Y-m') : $dateTime->format('Y-m-d');
             if ($formattedExpDate == $formattedCurrentDate) {
-                $total_expenses = $total_expenses + $exp['amount'];
+                $total_expenses += $exp['amount'];
             }
         }
+    
         $total_sanads = 0;
         foreach ($sanads_array as $snd) {
-            $formattedSndDate = $snd['created_at'];
+            $dateTime = new DateTime($snd['created_at']);
+            $formattedSndDate = ($type == 'monthly') ? $dateTime->format('Y-m') : $dateTime->format('Y-m-d');
+          
             if ($formattedSndDate == $formattedCurrentDate) {
-                $total_sanads = $total_sanads + $snd['amount'];
+                $total_sanads += $snd['amount'];
             }
         }
-
+    
         $report_data[] = array("date" => $formattedCurrentDate, "expenses" => $total_expenses, "sanads" => $total_sanads);
-
-        $currentDate->modify('+1 day');
+    
+        if ($type == 'monthly') {
+            $currentDate->modify('first day of next month');
+        } else {
+            $currentDate->modify('+1 day');
+        }
     }
-
+    
     echo json_encode($report_data);
 }
 ?>

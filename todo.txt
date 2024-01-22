@@ -4,16 +4,16 @@ TODO: Implement this feature
 2.  account details page
     - create account/details.php?id=1 page where we show all the transactions for 
       for a specific day or month or from day to day [X]
-    - show opening balance closing balance [ ]
+    - show opening balance closing balance [X]
 3. create expenses page (add,delete,edit{details}) 
-    - connect it to transactions [ ]
+    - connect it to transactions [X ]
 
 
 
 
 
 FIXME: Fix this issue
-use sql triggers to make it automated
+use sql triggers to make it automated [X]
 
 1. on fatoora delete delete all sanads [ X]
 2. on sanad add minus transactions to the account which the sanad was attached to [ X]

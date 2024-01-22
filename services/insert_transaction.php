@@ -38,7 +38,7 @@ function insert_transaction($conn, $account_id, $foreign_id, $amount, $transacti
     } elseif ($transaction_type == 'transfer') {
         // Get the last transaction made with the same account_id
         $transactionIds = array("from_id" => null, "to_id" => null);
-        $from_accounts_last_TransactionSql = "SELECT * FROM transactions WHERE account_id = '$foreign' ORDER BY id DESC LIMIT 1";
+        $from_accounts_last_TransactionSql = "SELECT * FROM transactions WHERE account_id = '$foreign_id' ORDER BY id DESC LIMIT 1";
         $from_accounts_last_TransactionResult = $conn->query($from_accounts_last_TransactionSql);
 
         if ($from_accounts_last_TransactionResult->num_rows > 0) {
@@ -50,11 +50,11 @@ function insert_transaction($conn, $account_id, $foreign_id, $amount, $transacti
 
         // Check if the from account has sufficient balance for the transfer
         if ($from_accounts_current_balance >= $amount) {
-            $detail = 'خصم لتحويل الى حساب اخر';
+            $detail = 'تحويل الى حساب اخر';
             
             // Insert the transaction for the account being transferred from (foreign_id)
             $from_balance = $from_accounts_current_balance - $amount;
-            $sql_from = "INSERT INTO transactions (detailsوaccount_id, amount, transaction_type, balance, foreign_id) 
+            $sql_from = "INSERT INTO transactions (details,account_id, amount, transaction_type, balance, foreign_id) 
                          VALUES ('$detail','$foreign_id', '$amount', 'transfer', '$from_balance', '$account_id')";
 
             // Insert the transaction for the account being transferred to (account_id)
@@ -68,7 +68,7 @@ function insert_transaction($conn, $account_id, $foreign_id, $amount, $transacti
                 return array("success" => false, "error" => "Cant find last transcation for the account being transfered to hence cant find balance.");
             }
 
-            $detail = 'ايداع لتحويل من حساب اخر';
+            $detail = ' تحويل من حساب اخر';
             $to_balance = $to_current_balance + $amount;
             $sql_to = "INSERT INTO transactions (details, account_id, amount, transaction_type, balance, foreign_id) 
                        VALUES ('$detail','$account_id', '$amount', 'transfer', '$to_balance', '$foreign_id')";
@@ -87,7 +87,7 @@ function insert_transaction($conn, $account_id, $foreign_id, $amount, $transacti
                 return array("success" => false, "error" => $conn->error);
             }
         } else {
-            return array("success" => false, "error" => "Insufficient balance for the transfer.");
+            return array("success" => false, "error" => "لا يوجد رصيد كافي.");
         }
     }
 

@@ -47,6 +47,7 @@
           <div class="box">
             <div class="box-header with-border">
               <a href="#addnew" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> اضافة حساب جديد</a>
+              <a href="#addnewtransfer" data-toggle="modal" class="btn btn-success btn-sm btn-flat"><i class="fa fa-plus"></i> تحويل من حساب الى اخر</a>
             </div>
             <div class="box-body">
               <table id="arabic_table" class="table table-bordered">
@@ -96,6 +97,8 @@
     
   <?php include 'includes/footer.php'; ?>
   <?php include 'includes/account_modal.php'; ?>
+  <?php include 'includes/transfer_modal.php'; ?>
+
 </div>
 <?php include 'includes/scripts.php'; ?>
 <script>
